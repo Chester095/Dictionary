@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(), BaseView{
 
         presenter = App.instance.mainPresenter as MainPresenterImpl
         presenter.attachPresenter(this)
-        button.setOnClickListener {
+        search_button.setOnClickListener {
             presenter.getListFromDB()
         }
     }
@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity(), BaseView{
         list.forEach {
             string += it
         }
-        text_view.text = string
     }
 
 }

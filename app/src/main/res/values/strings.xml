@@ -6,4 +6,5 @@
     <string name="login_edit_text">Логин</string>
     <string name="add_account_button_text">Добавить</string>
     <string name="save_account_button_text">Сохранить</string>
+    <string name="enter_word">Веедите слово</string>
 </resources>
