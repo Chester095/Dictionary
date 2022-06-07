@@ -4,40 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".ui.MainActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_margin="@dimen/iv_margin_layout"
+        android:id="@+id/inputLayout"
+        style="@style/TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/linear_layout_margin"
-        android:orientation="horizontal"
+        android:visibility="visible"
+        app:endIconCheckable="true"
+        app:endIconDrawable="@drawable/ic_baseline_search_24"
+        app:endIconMode="custom"
+        app:helperText="@string/enter_word"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_text_et"
+            style="@style/MyTextAppearanceHeadline1"
+            android:inputType="textAutoComplete"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="10">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_text_et"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/enter_word"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/search_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/ic_baseline_search_24"
-            tools:ignore="SpeakableTextPresentCheck" />
-    </LinearLayout>
+            android:textAppearance="@style/MyTextAppearanceHeadline1" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -46,6 +37,6 @@
         android:layout_margin="@dimen/linear_layout_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/inputLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

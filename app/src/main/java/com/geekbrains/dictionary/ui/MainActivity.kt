@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.geekbrains.dictionary.R
 import com.geekbrains.dictionary.databinding.ActivityMainBinding
 import com.geekbrains.dictionary.domain.words.WordsEntity
 
@@ -22,16 +23,14 @@ class MainActivity : AppCompatActivity(), MainActivityContract.MainActivityView{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
+        setTheme(R.style.MyThemeOrange)
         setContentView(binding.root)
-
         presenter.attachView(this)
 
         initRecyclerView()
 
-        binding.searchButton.setOnClickListener {
-            val text = binding.inputTextEt.text
+        binding.inputLayout.setEndIconOnClickListener {
             presenter.requestTranslated(binding.inputTextEt.text.toString())
-            Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
         }
     }
 
