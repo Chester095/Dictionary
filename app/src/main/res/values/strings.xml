@@ -8,4 +8,6 @@
     <string name="save_account_button_text">Сохранить</string>
     <string name="enter_word">Веедите слово</string>
     <string name="word_translate">Перевод:</string>
+    <string name="error_title">Произошла ошибка</string>
+    <string name="error_message">проверьте соединение с интернетом</string>
 </resources>
