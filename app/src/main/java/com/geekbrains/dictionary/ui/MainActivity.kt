@@ -2,6 +2,8 @@ package com.geekbrains.dictionary.ui
 
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,17 +14,19 @@ import com.geekbrains.dictionary.databinding.ActivityMainBinding
 import com.geekbrains.dictionary.domain.words.WordsEntity
 
 
-class MainActivity : AppCompatActivity(), MainActivityContract.ViewModel{
+class MainActivity : AppCompatActivity(), MainActivityContract.ViewModel {
 
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
 
     private val myAdapter by lazy { MainActivityAdapter() }
     private val progressDialog by lazy { ProgressDialog(this) }
-//    private var presenter: MainActivityContract.MainActivityPresenter = MainActivityPresenter(this)
-    private val VIEW_STATE_KEY = "VIEW_STATE_KEY"
-    private var viewState: ViewState = ViewState.INIT
-    private var viewModel: MainActivityContract.ViewModel?= null
+
+    //    private var presenter: MainActivityContract.MainActivityPresenter = MainActivityPresenter(this)
+//    private val VIEW_STATE_KEY = "VIEW_STATE_KEY"
+//    private var viewState: ViewState = ViewState.INIT
+    private var viewModel: MainActivityContract.ViewModel? = null
+    private val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +34,18 @@ class MainActivity : AppCompatActivity(), MainActivityContract.ViewModel{
         setTheme(R.style.MyThemeOrange)
         setContentView(binding.root)
 //        presenter.attachView(this)
-viewModel?.loadDataFromRepo().sub
+        viewModel?.loadDataFromRepo()
         initRecyclerView()
 
         binding.inputLayout.setEndIconOnClickListener {
-            presenter.requestTranslated(binding.inputTextEt.text.toString())
+            viewModel?.requestTranslated(binding.inputTextEt.text.toString())
+//            presenter.requestTranslated(binding.inputTextEt.text.toString())
         }
+
+        viewModel?.shouldShowProgress?.subscribe(handler) {
+
+        }
+
     }
 
     private fun initRecyclerView() {
@@ -58,12 +68,7 @@ viewModel?.loadDataFromRepo().sub
         progressDialog.dismiss()
     }
 
-
-    override fun showError() {
-
-    }
-
-    override fun startShowProgressLoading() {
+    fun startShowProgressLoading() {
         showProgressDialog()
     }
 
