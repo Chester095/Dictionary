@@ -1,6 +1,5 @@
 package com.geekbrains.dictionary.di
 
-import com.geekbrains.dictionary.ui.MainActivityPresenter
 import dagger.Component
 import javax.inject.Singleton
 
@@ -13,9 +12,4 @@ import javax.inject.Singleton
 // определяется, куда что-либо внедрять, а также методы для прямого доступа к зависимостям
 interface AppComponent {
     // injest - внедрить
-    fun injectMainActivityPresenter(mainActivityPresenter: MainActivityPresenter)
-
-
-
-
 }

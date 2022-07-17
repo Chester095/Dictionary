@@ -8,13 +8,16 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.utils.ViewState
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.geekbrains.dictionary.R
 import com.geekbrains.dictionary.databinding.ActivityMainBinding
 import com.geekbrains.dictionary.domain.words.WordsEntity
+import com.geekbrains.dictionary.ui.viewmodels.MainActivityViewModel
 
 
-class MainActivity : AppCompatActivity(), MainActivityContract.ViewModel {
+class MainActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
@@ -22,10 +25,9 @@ class MainActivity : AppCompatActivity(), MainActivityContract.ViewModel {
     private val myAdapter by lazy { MainActivityAdapter() }
     private val progressDialog by lazy { ProgressDialog(this) }
 
-    //    private var presenter: MainActivityContract.MainActivityPresenter = MainActivityPresenter(this)
-//    private val VIEW_STATE_KEY = "VIEW_STATE_KEY"
-//    private var viewState: ViewState = ViewState.INIT
-    private var viewModel: MainActivityContract.ViewModel? = null
+    private val viewModel: MainActivityContract.ViewModel by lazy {
+        ViewModelProvider(this)[MainActivityViewModel::class.java]
+    }
     private val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,19 +35,23 @@ class MainActivity : AppCompatActivity(), MainActivityContract.ViewModel {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setTheme(R.style.MyThemeOrange)
         setContentView(binding.root)
-//        presenter.attachView(this)
-        viewModel?.loadDataFromRepo()
         initRecyclerView()
 
         binding.inputLayout.setEndIconOnClickListener {
-            viewModel?.requestTranslated(binding.inputTextEt.text.toString())
-//            presenter.requestTranslated(binding.inputTextEt.text.toString())
+            viewModel.requestTranslated(binding.inputTextEt.text.toString())
         }
 
-        viewModel?.shouldShowProgress?.subscribe(handler) {
-
+        viewModel.shouldShowProgress.observe(this) {
+            if (it) showProgressDialog() else dismissProgressDialog()
         }
 
+        viewModel.skyengBaseLiveData.observe(this) { list ->
+            val data = list.map{
+                WordsEntity(it.meanings.firstOrNull()?.translation?.text)
+                // доделать БигНёрдРач
+            }
+            showListWordsTranslated(data)
+        }
     }
 
     private fun initRecyclerView() {
@@ -68,16 +74,8 @@ class MainActivity : AppCompatActivity(), MainActivityContract.ViewModel {
         progressDialog.dismiss()
     }
 
-    fun startShowProgressLoading() {
-        showProgressDialog()
-    }
-
-    override fun stopShowProgressLoading() {
-        dismissProgressDialog()
-    }
-
     override fun onDestroy() {
-        presenter.detachView()
+//        presenter.detachView()
         super.onDestroy()
 
     }

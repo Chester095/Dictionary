@@ -1,14 +1,15 @@
 package com.geekbrains.dictionary.ui
 
-import com.geekbrains.dictionary.utils.Publisher
+import androidx.lifecycle.LiveData
+import com.geekbrains.dictionary.domain.skyeng.SkyengBase
 
-class MainActivityContract {
+interface MainActivityContract {
 
-    interface ViewModel{
-        val shouldShowProgress: Publisher<Boolean>
+    abstract class ViewModel : androidx.lifecycle.ViewModel() {
+        abstract val shouldShowProgress: LiveData<Boolean>
+        abstract val skyengBaseLiveData: LiveData<List<SkyengBase>>
 
-        fun requestTranslated(searchWord: String)
-        fun loadDataFromRepo()
+        abstract fun requestTranslated(searchWord: String)
     }
 
 }
