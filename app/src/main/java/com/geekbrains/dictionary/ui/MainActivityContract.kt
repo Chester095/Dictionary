@@ -1,22 +1,15 @@
 package com.geekbrains.dictionary.ui
 
-import com.geekbrains.dictionary.domain.words.WordsEntity
+import androidx.lifecycle.LiveData
+import com.geekbrains.dictionary.domain.skyeng.SkyengBase
 
-class MainActivityContract {
+interface MainActivityContract {
 
-    interface MainActivityView{
-        fun showListWordsTranslated(list:List<WordsEntity>)
-        fun showError()
-        fun startShowProgressLoading()
-        fun stopShowProgressLoading()
+    abstract class ViewModel : androidx.lifecycle.ViewModel() {
+        abstract val shouldShowProgress: LiveData<Boolean>
+        abstract val skyengBaseLiveData: LiveData<List<SkyengBase>>
 
-    }
-
-    interface MainActivityPresenter{
-        fun attachView(view: MainActivityView)
-        fun detachView()
-        fun requestTranslated(searchWord: String)
-        fun loadDataFromRepo()
+        abstract fun requestTranslated(searchWord: String)
     }
 
 }

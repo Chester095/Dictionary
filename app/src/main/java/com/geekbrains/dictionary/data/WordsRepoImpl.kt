@@ -20,7 +20,6 @@ class WordsRepoImpl() : WordsEntityUseCase {
         return cashWords
     }
 
-
     override val dataList: Single<List<WordsEntity>>
         get() = Single.just(cashWords)
 

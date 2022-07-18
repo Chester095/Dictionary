@@ -6,7 +6,7 @@
     <string name="login_edit_text">Логин</string>
     <string name="add_account_button_text">Добавить</string>
     <string name="save_account_button_text">Сохранить</string>
-    <string name="enter_word">Веедите слово</string>
+    <string name="enter_word">Введите слово</string>
     <string name="word_translate">Перевод:</string>
     <string name="error_title">Произошла ошибка</string>
     <string name="error_message">проверьте соединение с интернетом</string>
