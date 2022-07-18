@@ -12,15 +12,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.geekbrains.dictionary.R
+import com.geekbrains.dictionary.data.WordsRepoImpl
 import com.geekbrains.dictionary.databinding.ActivityMainBinding
+import com.geekbrains.dictionary.domain.skyeng.SkyengBase
 import com.geekbrains.dictionary.domain.words.WordsEntity
 import com.geekbrains.dictionary.ui.viewmodels.MainActivityViewModel
 
+private const val TAG = "!!!"
 
 class MainActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
+
+    private val wordsRepoImpl by lazy { WordsRepoImpl()}
 
     private val myAdapter by lazy { MainActivityAdapter() }
     private val progressDialog by lazy { ProgressDialog(this) }
@@ -46,11 +51,28 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.skyengBaseLiveData.observe(this) { list ->
-            val data = list.map{
-                WordsEntity(it.meanings.firstOrNull()?.translation?.text)
-                // доделать БигНёрдРач
+            convertForRepository(list)
+            loadDataFromRepo()
+        }
+    }
+
+    private fun loadDataFromRepo() {
+        val list = wordsRepoImpl.getListWordsFromRepo()
+        showListWordsTranslated(list)
+        dismissProgressDialog()
+    }
+
+    private fun convertForRepository(listSkyEng: List<SkyengBase>) {
+        wordsRepoImpl.clearRepo()
+        listSkyEng.forEach { it ->
+            it.meanings.forEach {
+                wordsRepoImpl.createWord(
+                    word = WordsEntity(
+                        it.translation.text,
+                        it.transcription
+                    )
+                )
             }
-            showListWordsTranslated(data)
         }
     }
 
@@ -59,25 +81,20 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = myAdapter
     }
 
-    fun showListWordsTranslated(list: List<WordsEntity>) {
+    private fun showListWordsTranslated(list: List<WordsEntity>) {
         myAdapter.refreshList(list)
         Log.d("!!!", "showListTranslated: ")
     }
 
-    fun showProgressDialog() {
+    private fun showProgressDialog() {
         progressDialog.setTitle("Load data")
         progressDialog.setMessage("... please wait")
         progressDialog.show()
     }
 
-    fun dismissProgressDialog() {
+    private fun dismissProgressDialog() {
         progressDialog.dismiss()
     }
 
-    override fun onDestroy() {
-//        presenter.detachView()
-        super.onDestroy()
-
-    }
 
 }
