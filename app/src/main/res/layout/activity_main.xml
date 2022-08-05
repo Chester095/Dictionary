@@ -7,11 +7,11 @@
     tools:context=".ui.MainActivity">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_margin="@dimen/iv_margin_layout"
         android:id="@+id/inputLayout"
         style="@style/TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/iv_margin_layout"
         android:visibility="visible"
         app:endIconCheckable="true"
         app:endIconDrawable="@drawable/ic_baseline_search_24"
@@ -24,9 +24,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_text_et"
             style="@style/MyTextAppearanceHeadline1"
-            android:inputType="textAutoComplete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textAutoComplete"
             android:textAppearance="@style/MyTextAppearanceHeadline1" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -38,5 +38,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputLayout" />
+
+    <Button
+        android:id="@+id/buttonKoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="@string/koin"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_view"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

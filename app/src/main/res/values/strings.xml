@@ -10,4 +10,5 @@
     <string name="word_translate">Перевод:</string>
     <string name="error_title">Произошла ошибка</string>
     <string name="error_message">проверьте соединение с интернетом</string>
+    <string name="koin">KOIN</string>
 </resources>

@@ -9,6 +9,7 @@ import com.geekbrains.dictionary.R
 import com.geekbrains.dictionary.databinding.ActivityMainBinding
 import com.geekbrains.dictionary.domain.skyeng.SkyengBase
 import com.geekbrains.dictionary.ui.viewmodels.MainActivityViewModel
+import kotlinx.coroutines.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +20,10 @@ class MainActivity : AppCompatActivity() {
     private val myAdapter by lazy { MainActivityAdapter() }
     private val progressDialog by lazy { ProgressDialog(this) }
 
+    private val scope = CoroutineScope(Dispatchers.Main)
+    private val scope2 = CoroutineScope(Dispatchers.IO)
+    private var job: Job? = null
+    private var job2: Job? = null
 
     private val viewModel: MainActivityContract.ViewModel by lazy {
         ViewModelProvider(this)[MainActivityViewModel::class.java]
@@ -36,8 +41,22 @@ class MainActivity : AppCompatActivity() {
             viewModel.requestTranslated(binding.inputTextEt.text.toString())
         }
 
+        job2 = scope2.async(start = CoroutineStart.LAZY) {
+            delay(2000)
+            (0..10).random().toString()
+        }
+
+        binding.buttonKoin.setOnClickListener {
+            job?.cancel()
+            job = scope.launch {
+                showProgressDialog("Job2 test  " + (job2 as Deferred<String>)?.await())
+                delay(5000)
+                dismissProgressDialog()
+            }
+        }
+
         viewModel.shouldShowProgress.observe(this) {
-            if (it) showProgressDialog() else dismissProgressDialog()
+            if (it) showProgressDialog("Load data") else dismissProgressDialog()
         }
 
         viewModel.skyengBaseLiveData.observe(this) { list ->
@@ -54,8 +73,8 @@ class MainActivity : AppCompatActivity() {
         myAdapter.refreshList(list)
     }
 
-    private fun showProgressDialog() {
-        progressDialog.setTitle("Load data")
+    private fun showProgressDialog(s: String) {
+        progressDialog.setTitle(s)
         progressDialog.setMessage("... please wait")
         progressDialog.show()
     }
