@@ -7,15 +7,32 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.geekbrains.dictionary.R
+import com.geekbrains.dictionary.domain.skyeng.SkyengBase
 import com.geekbrains.dictionary.domain.words.WordsEntity
 
 class MainActivityAdapter:RecyclerView.Adapter<MainActivityAdapter.MainActivityViewHolder>() {
     private var listWords = listOf<WordsEntity>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun refreshList(list:List<WordsEntity>){
-        this.listWords = list
+    fun refreshList(list: List<SkyengBase>){
+        this.listWords = convertForRepository(list)
         notifyDataSetChanged()
+    }
+
+
+    private fun convertForRepository(listSkyEng: List<SkyengBase>): List<WordsEntity> {
+        val wordsRepoImpl = mutableListOf<WordsEntity>()
+        listSkyEng.forEach { it ->
+            it.meanings.forEach {
+                wordsRepoImpl.add(
+                    WordsEntity(
+                        it.translation.text,
+                        it.transcription
+                    )
+                )
+            }
+        }
+        return wordsRepoImpl
     }
 
     override fun getItemCount(): Int = listWords.size
