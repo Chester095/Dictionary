@@ -17,12 +17,12 @@ class MainActivityViewModel : MainActivityContract.ViewModel() {
         loadDataFromWeb(searchWord)
     }
 
-    private fun loadDataFromWeb(searchWord: String) {
+    override fun loadDataFromWeb(searchWord: String) {
         shouldShowProgress.postValue(true)
         RetrofitWebConnection(onCallbackWebRequest).webRequest(searchWord)
     }
 
-    private val onCallbackWebRequest = object : OnCallbackWebRequest {
+    override val onCallbackWebRequest = object : OnCallbackWebRequest {
         override fun onResponse(body: List<SkyengBase>?) {
             body?.let { response -> skyengBaseLiveData.postValue(response) }
             shouldShowProgress.postValue(false)

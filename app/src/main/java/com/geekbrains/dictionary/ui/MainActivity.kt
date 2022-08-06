@@ -5,11 +5,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.geekbrains.dictionary.App
 import com.geekbrains.dictionary.R
 import com.geekbrains.dictionary.databinding.ActivityMainBinding
 import com.geekbrains.dictionary.domain.skyeng.SkyengBase
 import com.geekbrains.dictionary.ui.viewmodels.MainActivityViewModel
 import kotlinx.coroutines.*
+import org.koin.android.ext.android.inject
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +27,8 @@ class MainActivity : AppCompatActivity() {
     private var job: Job? = null
     private var job2: Job? = null
 
+    private val mainProgressDialog: MainProgressDialog by inject()
+
     private val viewModel: MainActivityContract.ViewModel by lazy {
         ViewModelProvider(this)[MainActivityViewModel::class.java]
     }
@@ -35,28 +39,31 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.MyThemeOrange)
         setContentView(binding.root)
         initRecyclerView()
-
+        App().setContext(this)
 
         binding.inputLayout.setEndIconOnClickListener {
+            initRecyclerView()
             viewModel.requestTranslated(binding.inputTextEt.text.toString())
         }
+
 
         job2 = scope2.async(start = CoroutineStart.LAZY) {
             delay(2000)
             (0..10).random().toString()
         }
-
         binding.buttonKoin.setOnClickListener {
             job?.cancel()
             job = scope.launch {
-                showProgressDialog("Job2 test  " + (job2 as Deferred<String>)?.await())
+                showProgressDialog("Job2 test  " + (job2 as Deferred<String>).await())
                 delay(5000)
                 dismissProgressDialog()
             }
         }
 
         viewModel.shouldShowProgress.observe(this) {
-            if (it) showProgressDialog("Load data") else dismissProgressDialog()
+            initRecyclerView()
+            if (it) mainProgressDialog.showProgressDialog()
+            else mainProgressDialog.dismissProgressDialog()
         }
 
         viewModel.skyengBaseLiveData.observe(this) { list ->

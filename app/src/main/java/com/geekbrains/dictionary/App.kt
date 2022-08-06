@@ -1,17 +1,35 @@
 package com.geekbrains.dictionary
 
 import android.app.Application
-import com.geekbrains.dictionary.di.DaggerAppComponent
+import android.content.Context
+import android.util.Log
+import com.geekbrains.dictionary.di.Di
+import org.koin.core.context.startKoin
 
-class App:Application() {
-    var appComponent =  DaggerAppComponent.create()
+class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        startKoin {
+            modules(Di.mainModule)
+        }
         instance = this
+
+
+    }
+
+    fun setContext(context: Context) {
+        mainContext = context
+        Log.d("!!!", "App.mainContext        = $mainContext")
+    }
+
+    fun getContext() : Context{
+        Log.d("!!!", "App.mainContext        = $mainContext")
+        return mainContext
     }
 
     companion object {
+        lateinit var mainContext: Context
         lateinit var instance: App
             private set
     }
