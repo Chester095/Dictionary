@@ -12,6 +12,7 @@ import com.geekbrains.dictionary.domain.skyeng.SkyengBase
 import com.geekbrains.dictionary.ui.viewmodels.MainActivityViewModel
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Timber.plant(Timber.DebugTree())
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setTheme(R.style.MyThemeOrange)
         setContentView(binding.root)
@@ -52,6 +54,7 @@ class MainActivity : AppCompatActivity() {
             (0..10).random().toString()
         }
         binding.buttonKoin.setOnClickListener {
+            Timber.d("Test")
             job?.cancel()
             job = scope.launch {
                 showProgressDialog("Job2 test  " + (job2 as Deferred<String>).await())

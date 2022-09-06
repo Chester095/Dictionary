@@ -20,12 +20,10 @@ class App : Application() {
 
     fun setContext(context: Context) {
         mainContext = context
-        Log.d("!!!", "App.mainContext        = $mainContext")
     }
 
     fun getContext() : Context{
-        Log.d("!!!", "App.mainContext        = $mainContext")
-        return mainContext
+        return instance
     }
 
     companion object {
