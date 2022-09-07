@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
+
+    <Button
+        android:id="@+id/buttonKoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/koin"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLayout"
         style="@style/TextInputLayout"
@@ -17,9 +29,8 @@
         app:endIconDrawable="@drawable/ic_baseline_search_24"
         app:endIconMode="custom"
         app:helperText="@string/enter_word"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/buttonKoin">
+
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_text_et"
@@ -30,33 +41,15 @@
             android:textAppearance="@style/MyTextAppearanceHeadline1" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
-
-    <ImageView
-        android:id="@+id/main_imageUrl"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputLayout"
-        android:contentDescription="TEST" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/linear_layout_margin"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/main_imageUrl"
-        app:layout_constraintTop_toBottomOf="@+id/inputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/inputLayout"
+        />
 
-    <Button
-        android:id="@+id/buttonKoin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="@string/koin"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_view"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

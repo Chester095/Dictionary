@@ -45,11 +45,6 @@ class MainActivity : AppCompatActivity() {
         App().setContext(this)
         Timber.d("App.mainContext = " + App.mainContext)
 
-        Glide.with(this)
-            .load("//cdn-user77752.skyeng.ru/resized-images/640x480/jpeg/60/ef46643423902f57c2960731a378e817.jpeg")
-            .skipMemoryCache(true)
-            .into(binding.mainImageUrl)
-
         binding.inputLayout.setEndIconOnClickListener {
             initRecyclerView()
             viewModel.requestTranslated(binding.inputTextEt.text.toString())

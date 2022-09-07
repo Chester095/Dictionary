@@ -1,7 +1,6 @@
 package com.geekbrains.dictionary.ui
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,14 +52,12 @@ class MainActivityAdapter : RecyclerView.Adapter<MainActivityAdapter.MainActivit
     override fun onBindViewHolder(holder: MainActivityViewHolder, position: Int) {
         if (listWords.isNotEmpty()) {
             holder.translation.text = listWords[position].translationText
-//            holder.imageUrl.setImageDrawable() = listWords[position].imageUrl
 
-//            var requestOptions = RequestOptions()
-//            requestOptions = requestOptions.transforms(FitCenter(), RoundedCorners(16))
+            var requestOptions = RequestOptions()
+            requestOptions = requestOptions.transforms(FitCenter(), RoundedCorners(16))
             Glide.with(App.mainContext)
-//                .load(listWords[position].imageUrl)
-                .load("//cdn-user77752.skyeng.ru/resized-images/640x480/jpeg/60/ef46643423902f57c2960731a378e817.jpeg")
-//                .apply(requestOptions)
+                .load("https:" + listWords[position].imageUrl)
+                .apply(requestOptions)
                 .skipMemoryCache(true)
                 .into(holder.imageUrl)
         }
