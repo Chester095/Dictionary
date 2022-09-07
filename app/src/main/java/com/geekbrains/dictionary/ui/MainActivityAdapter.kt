@@ -1,20 +1,27 @@
 package com.geekbrains.dictionary.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.FitCenter
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
+import com.geekbrains.dictionary.App
 import com.geekbrains.dictionary.R
 import com.geekbrains.dictionary.domain.skyeng.SkyengBase
 import com.geekbrains.dictionary.domain.words.WordsEntity
 
-class MainActivityAdapter:RecyclerView.Adapter<MainActivityAdapter.MainActivityViewHolder>() {
+class MainActivityAdapter : RecyclerView.Adapter<MainActivityAdapter.MainActivityViewHolder>() {
     private var listWords = listOf<WordsEntity>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun refreshList(list: List<SkyengBase>){
+    fun refreshList(list: List<SkyengBase>) {
         this.listWords = convertForRepository(list)
         notifyDataSetChanged()
     }
@@ -27,6 +34,7 @@ class MainActivityAdapter:RecyclerView.Adapter<MainActivityAdapter.MainActivityV
                 wordsRepoImpl.add(
                     WordsEntity(
                         it.translation.text,
+                        it.imageUrl,
                         it.transcription
                     )
                 )
@@ -38,18 +46,28 @@ class MainActivityAdapter:RecyclerView.Adapter<MainActivityAdapter.MainActivityV
     override fun getItemCount(): Int = listWords.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainActivityViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_translate,parent,false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_translate, parent, false)
         return MainActivityViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: MainActivityViewHolder, position: Int) {
-        if(listWords.isNotEmpty()) {
-        holder.translation.text = listWords[position].translationText
-        }
+        if (listWords.isNotEmpty()) {
+            holder.translation.text = listWords[position].translationText
+//            holder.imageUrl.setImageDrawable() = listWords[position].imageUrl
 
+//            var requestOptions = RequestOptions()
+//            requestOptions = requestOptions.transforms(FitCenter(), RoundedCorners(16))
+            Glide.with(App.mainContext)
+//                .load(listWords[position].imageUrl)
+                .load("//cdn-user77752.skyeng.ru/resized-images/640x480/jpeg/60/ef46643423902f57c2960731a378e817.jpeg")
+//                .apply(requestOptions)
+                .skipMemoryCache(true)
+                .into(holder.imageUrl)
+        }
     }
 
-    class MainActivityViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView){
-        val translation:TextView = itemView.findViewById(R.id.item_text_view)
+    class MainActivityViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val translation: TextView = itemView.findViewById(R.id.item_text_view)
+        val imageUrl: ImageView = itemView.findViewById<View>(R.id.item_imageUrl) as ImageView
     }
 }

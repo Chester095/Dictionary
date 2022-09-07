@@ -3,15 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:layout_margin="@dimen/iv_margin_layout"
-    android:layout_marginTop="@dimen/iv_margin_layout">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/item_tv_text_size"
-            tools:text="@string/word_translate" />
+    android:layout_marginTop="@dimen/iv_margin_layout"
+    android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/item_text_view"
@@ -20,6 +14,14 @@
             android:layout_marginStart="@dimen/iv_margin_start"
             android:textSize="@dimen/item_tv_text_size"
             android:textStyle="bold"
+            tools:text="@string/word_translate" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/item_imageUrl"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="@dimen/iv_margin_start"
             tools:text="@string/word_translate" />
 
 </LinearLayout>

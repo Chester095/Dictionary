@@ -1,7 +1,6 @@
 package com.geekbrains.dictionary.datasource
 
 
-import android.util.Log
 import com.geekbrains.dictionary.data.OnCallbackWebRequest
 import com.geekbrains.dictionary.domain.skyeng.SkyengBase
 import retrofit2.Call
@@ -12,6 +11,7 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+import timber.log.Timber
 
 private const val BASEURL = "https://dictionary.skyeng.ru/api/public/v1/words/"
 
@@ -28,13 +28,13 @@ class RetrofitWebConnection(private val onCallbackWebRequest: OnCallbackWebReque
             ) {
                 if (response.isSuccessful && response.code() == 200) {
                     val skyEngBase = response.body()
-                    Log.d("!!!", "onResponse: RetrofitWebConnection" + skyEngBase.toString())
+                    Timber.d("onResponse: RetrofitWebConnection" + skyEngBase.toString())
                 }
                 onCallbackWebRequest.onResponse(response.body())
             }
 
             override fun onFailure(call: Call<List<SkyengBase>>, t: Throwable) {
-                Log.d("!!!", "Что-то пошло не так")
+                Timber.d("Что-то пошло не так")
             }
         })
     }

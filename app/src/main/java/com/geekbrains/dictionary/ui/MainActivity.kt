@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.geekbrains.dictionary.App
 import com.geekbrains.dictionary.R
 import com.geekbrains.dictionary.databinding.ActivityMainBinding
@@ -36,12 +37,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Timber.plant(Timber.DebugTree())
+
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setTheme(R.style.MyThemeOrange)
         setContentView(binding.root)
         initRecyclerView()
         App().setContext(this)
+        Timber.d("App.mainContext = " + App.mainContext)
+
+        Glide.with(this)
+            .load("//cdn-user77752.skyeng.ru/resized-images/640x480/jpeg/60/ef46643423902f57c2960731a378e817.jpeg")
+            .skipMemoryCache(true)
+            .into(binding.mainImageUrl)
 
         binding.inputLayout.setEndIconOnClickListener {
             initRecyclerView()
