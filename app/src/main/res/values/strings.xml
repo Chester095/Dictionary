@@ -11,4 +11,6 @@
     <string name="error_title">Произошла ошибка</string>
     <string name="error_message">проверьте соединение с интернетом</string>
     <string name="koin">KOIN</string>
+    <string name="history">запрос</string>
+    <string name="history_button">History</string>
 </resources>

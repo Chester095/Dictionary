@@ -6,20 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
+    <Button
+        android:id="@+id/button_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/history_button"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@+id/button_koin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonKoin"
+        android:id="@+id/button_koin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/koin"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_history"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputLayout"
+        android:id="@+id/input_layout"
         style="@style/TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,7 +38,7 @@
         app:endIconDrawable="@drawable/ic_baseline_search_24"
         app:endIconMode="custom"
         app:helperText="@string/enter_word"
-        app:layout_constraintTop_toBottomOf="@+id/buttonKoin">
+        app:layout_constraintTop_toBottomOf="@+id/button_koin">
 
 
         <com.google.android.material.textfield.TextInputEditText
@@ -46,10 +55,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/linear_layout_margin"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputLayout"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_layout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.geekbrains.dictionary.ui
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -48,6 +49,11 @@ class MainActivity : AppCompatActivity() {
         binding.inputLayout.setEndIconOnClickListener {
             initRecyclerView()
             viewModel.requestTranslated(binding.inputTextEt.text.toString())
+        }
+
+        binding.buttonHistory.setOnClickListener {
+            val intent = Intent(this@MainActivity, HistoryActivity::class.java)
+            startActivity(intent)
         }
 
 
