@@ -37,16 +37,6 @@ class HistoryActivity : AppCompatActivity() {
         _binding = ActivityHistoryBinding.inflate(layoutInflater)
         setTheme(R.style.MyThemeOrange)
         setContentView(binding.root)
-
-/*        viewModel.shouldShowProgress.observe(this) {
-            initRecyclerView()
-            if (it) mainProgressDialog.showProgressDialog()
-            else mainProgressDialog.dismissProgressDialog()
-        }
-
-        viewModel.skyengBaseLiveData.observe(this) { list ->
-            showListWordsTranslated(list)
-        }*/
     }
 
     private fun initRecyclerView() {

@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private var job: Job? = null
     private var job2: Job? = null
 
+
     private val mainProgressDialog: MainProgressDialog by inject()
 
     private val viewModel: MainActivityContract.ViewModel by lazy {
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         binding.inputLayout.setEndIconOnClickListener {
             initRecyclerView()
             viewModel.requestTranslated(binding.inputTextEt.text.toString())
+
         }
 
         binding.buttonHistory.setOnClickListener {
@@ -56,11 +58,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
         job2 = scope2.async(start = CoroutineStart.LAZY) {
             delay(2000)
             (0..10).random().toString()
         }
+
+
+
         binding.buttonKoin.setOnClickListener {
             Timber.d("Test")
             job?.cancel()
