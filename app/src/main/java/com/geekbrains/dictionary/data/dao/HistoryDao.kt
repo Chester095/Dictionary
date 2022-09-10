@@ -12,5 +12,6 @@ interface HistoryDao {
     fun getAll(): List<History>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertHistory(string: List<History>)
+    fun insertHistory(history: History)
+
 }

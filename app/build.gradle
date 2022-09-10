@@ -5,6 +5,7 @@ plugins {
 }
 
 android {
+
     compileSdk 32
 
     defaultConfig {
@@ -18,7 +19,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
     }
@@ -81,7 +82,7 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.12.0'
 
     //Room
-    def room_version = "2.4.2"
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
+    def roomVersion = "2.3.0"
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
 }

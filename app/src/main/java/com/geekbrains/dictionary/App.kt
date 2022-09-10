@@ -30,6 +30,8 @@ class App : Application() {
     }
 
     companion object {
+        val db = Room.databaseBuilder(mainContext, HistoryDatabase::class.java, "history_database")
+            .build()
         lateinit var mainContext: Context
         lateinit var instance: App
             private set

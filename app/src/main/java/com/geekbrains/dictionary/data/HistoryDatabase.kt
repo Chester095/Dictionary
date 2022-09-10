@@ -6,6 +6,6 @@ import com.geekbrains.dictionary.data.dao.HistoryDao
 import com.geekbrains.dictionary.data.entities.History
 
 @Database(entities = [History::class], version = 1, exportSchema = true)
-abstract class HistoryDatabase : RoomDatabase() {
-    abstract fun historyDao(): HistoryDao
+abstract class HistoryDatabase: RoomDatabase(){
+    abstract fun historyDao():HistoryDao
 }
