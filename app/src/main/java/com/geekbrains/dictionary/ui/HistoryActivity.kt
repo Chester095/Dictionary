@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.geekbrains.dictionary.R
 import com.geekbrains.dictionary.databinding.ActivityHistoryBinding
-import com.geekbrains.dictionary.ui.viewmodels.MainActivityViewModel
+import com.geekbrains.dictionary.ui.viewmodels.HistoryActivityViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -28,8 +28,12 @@ class HistoryActivity : AppCompatActivity() {
 
     private val mainProgressDialog: MainProgressDialog by inject()
 
-    private val viewModel: MainActivityContract.ViewModel by lazy {
-        ViewModelProvider(this)[MainActivityViewModel::class.java]
+    private val viewModel: HistoryActivityContract.ViewModel by lazy {
+        ViewModelProvider(this)[HistoryActivityViewModel::class.java]
+    }
+
+    public fun addData(history : String) {
+        viewModel.addData(history)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -10,6 +10,8 @@ import timber.log.Timber
 
 class App : Application() {
 
+    private var db: HistoryDatabase? = null
+
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
@@ -17,10 +19,17 @@ class App : Application() {
             modules(Di.mainModule)
         }
         instance = this
-        val db = Room.databaseBuilder(instance,  HistoryDatabase::class.java, "history_database")
+        db = Room.databaseBuilder(this,  HistoryDatabase::class.java, "history_database")
             .build()
     }
 
+    fun getInstance(): App {
+        return instance
+    }
+
+    fun getDatabase(): HistoryDatabase? {
+        return db
+    }
     fun setContext(context: Context) {
         mainContext = context
     }
@@ -30,8 +39,6 @@ class App : Application() {
     }
 
     companion object {
-        val db = Room.databaseBuilder(mainContext, HistoryDatabase::class.java, "history_database")
-            .build()
         lateinit var mainContext: Context
         lateinit var instance: App
             private set

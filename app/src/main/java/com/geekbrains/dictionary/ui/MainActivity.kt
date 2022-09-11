@@ -6,9 +6,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.geekbrains.dictionary.App
 import com.geekbrains.dictionary.R
+import com.geekbrains.dictionary.data.HistoryDatabase
+import com.geekbrains.dictionary.data.entities.History
 import com.geekbrains.dictionary.databinding.ActivityMainBinding
 import com.geekbrains.dictionary.domain.skyeng.SkyengBase
 import com.geekbrains.dictionary.ui.viewmodels.MainActivityViewModel
@@ -30,6 +31,10 @@ class MainActivity : AppCompatActivity() {
     private var job: Job? = null
     private var job2: Job? = null
 
+    private val scopeHistory = CoroutineScope(Dispatchers.IO)
+    private var jobHistory: Job? = null
+    var db: HistoryDatabase? = App.instance.getDatabase()
+    private val historyDao = db?.historyDao()
 
     private val mainProgressDialog: MainProgressDialog by inject()
 
@@ -45,10 +50,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         initRecyclerView()
         App().setContext(this)
-        Timber.d("App.mainContext = " + App.mainContext)
 
         binding.inputLayout.setEndIconOnClickListener {
             initRecyclerView()
+            addData(binding.inputTextEt.text.toString())
             viewModel.requestTranslated(binding.inputTextEt.text.toString())
 
         }
@@ -83,6 +88,13 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.skyengBaseLiveData.observe(this) { list ->
             showListWordsTranslated(list)
+        }
+    }
+
+    private fun addData(history: String) {
+        jobHistory = scopeHistory.async(start = CoroutineStart.LAZY) {
+            val historyTemp = History(0, history)
+            historyDao?.insertHistory(historyTemp)
         }
     }
 
