@@ -31,8 +31,6 @@ class MainActivity : AppCompatActivity() {
     private var job: Job? = null
     private var job2: Job? = null
 
-    private val scopeHistory = CoroutineScope(Dispatchers.IO)
-    private var jobHistory: Job? = null
     var db: HistoryDatabase? = App.instance.getDatabase()
     private val historyDao = db?.historyDao()
 
@@ -68,10 +66,7 @@ class MainActivity : AppCompatActivity() {
             (0..10).random().toString()
         }
 
-
-
         binding.buttonKoin.setOnClickListener {
-            Timber.d("Test")
             job?.cancel()
             job = scope.launch {
                 showProgressDialog("Job2 test  " + (job2 as Deferred<String>).await())
@@ -92,7 +87,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addData(history: String) {
-        jobHistory = scopeHistory.async(start = CoroutineStart.LAZY) {
+        CoroutineScope(Dispatchers.IO).launch{
             val historyTemp = History(0, history)
             historyDao?.insertHistory(historyTemp)
         }

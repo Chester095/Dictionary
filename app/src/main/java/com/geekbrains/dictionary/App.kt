@@ -21,6 +21,7 @@ class App : Application() {
         instance = this
         db = Room.databaseBuilder(this,  HistoryDatabase::class.java, "history_database")
             .build()
+        Timber.d("db = $db")
     }
 
     fun getInstance(): App {
