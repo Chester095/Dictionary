@@ -20,23 +20,4 @@ class HistoryActivityViewModel : HistoryActivityContract.ViewModel() {
         TODO("Not yet implemented")
     }
 
-    override fun addData(history: String) {
-        jobHistory = scopeHistory.async(start = CoroutineStart.LAZY) {
-            val historyTemp = History(0, history)
-        }
-    }
-
-
-    override val onCallbackWebRequest = object : OnCallbackWebRequest {
-        override fun onResponse(body: List<SkyengBase>?) {
-            body?.let { response -> skyengBaseLiveData.postValue(response) }
-            shouldShowProgress.postValue(false)
-        }
-
-        override fun onFailure() {
-            shouldShowProgress.postValue(false)
-            Timber.d("Что-то пошло не так")
-        }
-    }
-
 }
