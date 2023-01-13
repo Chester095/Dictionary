@@ -8,9 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.geekbrains.dictionary.App
 import com.geekbrains.dictionary.R
 import com.geekbrains.dictionary.data.HistoryDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class HistoryActivityAdapter : RecyclerView.Adapter<HistoryActivityAdapter.HistoryActivityViewHolder>() {
-    private var db: HistoryDatabase? = App.instance.getDatabase()
+    private var db: HistoryDatabase? = App.appInstance.getDatabase()
     private val historyDao by lazy { db?.historyDao() }
 /*
     @SuppressLint("NotifyDataSetChanged")
@@ -40,16 +44,23 @@ class HistoryActivityAdapter : RecyclerView.Adapter<HistoryActivityAdapter.Histo
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryActivityViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_history, parent, false)
+        Timber.tag("!!!").d("onCreateViewHolder itemView%s", itemView)
         return HistoryActivityViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: HistoryActivityViewHolder, position: Int) {
+        Timber.tag("!!!").d("onBindViewHolder")
         if (historyDao!=null) {
-            holder.translation.text = historyDao?.getId(position).toString()
+            Timber.tag("!!!").d("onBindViewHolder")
+            CoroutineScope(Dispatchers.IO).launch{
+                holder.historyName.text = historyDao?.getId(position).toString()
+            }
+            Timber.tag("!!!").d("onBindViewHolder position = position%s ", position)
+//            holder.translation.text = historyDao?.getId(position).toString()
         }
     }
 
     class HistoryActivityViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val translation: TextView = itemView.findViewById(R.id.item_text_view)
+        val historyName: TextView = itemView.findViewById(R.id.item_text_view)
     }
 }

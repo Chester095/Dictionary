@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.geekbrains.dictionary.databinding.ActivityHistoryBinding
 import com.geekbrains.dictionary.ui.viewmodels.HistoryActivityViewModel
+import timber.log.Timber
 
 
 class HistoryActivity : AppCompatActivity() {
@@ -23,12 +24,16 @@ class HistoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initRecyclerView()
     }
 
     private fun initRecyclerView() {
+        Timber.tag("!!!").d("layoutManager")
+        Timber.tag("!!!").d("adapter")
+
+
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = myAdapter
     }
-
 
 }

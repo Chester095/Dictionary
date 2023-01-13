@@ -15,7 +15,6 @@ import com.geekbrains.dictionary.domain.skyeng.SkyengBase
 import com.geekbrains.dictionary.ui.viewmodels.MainActivityViewModel
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
-import timber.log.Timber
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     private var job: Job? = null
     private var job2: Job? = null
 
-    var db: HistoryDatabase? = App.instance.getDatabase()
+    private var db: HistoryDatabase? = App.appInstance.getDatabase()
     private val historyDao = db?.historyDao()
 
     private val mainProgressDialog: MainProgressDialog by inject()
@@ -69,16 +68,19 @@ class MainActivity : AppCompatActivity() {
         binding.buttonKoin.setOnClickListener {
             job?.cancel()
             job = scope.launch {
-                showProgressDialog("Job2 test  " + (job2 as Deferred<String>).await())
+                showProgressDialog("Job2 test  " + (job2 as Deferred<*>).await())
                 delay(5000)
                 dismissProgressDialog()
             }
         }
 
-        viewModel.shouldShowProgress.observe(this) {
+        viewModel.shouldShowProgress.observe(this) { it ->
             initRecyclerView()
-            if (it) mainProgressDialog.showProgressDialog()
-            else mainProgressDialog.dismissProgressDialog()
+            if (it) {
+                mainProgressDialog.showProgressDialog()
+            } else {
+                mainProgressDialog.dismissProgressDialog()
+            }
         }
 
         viewModel.skyengBaseLiveData.observe(this) { list ->
