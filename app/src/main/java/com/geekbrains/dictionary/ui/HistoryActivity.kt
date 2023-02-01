@@ -2,11 +2,9 @@ package com.geekbrains.dictionary.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.geekbrains.dictionary.App
 import com.geekbrains.dictionary.databinding.ActivityHistoryBinding
-import com.geekbrains.dictionary.ui.viewmodels.HistoryActivityViewModel
-import timber.log.Timber
 
 
 class HistoryActivity : AppCompatActivity() {
@@ -14,11 +12,7 @@ class HistoryActivity : AppCompatActivity() {
     private var _binding: ActivityHistoryBinding? = null
     private val binding get() = _binding!!
 
-    private val myAdapter by lazy { HistoryActivityAdapter() }
-
-    private val viewModel: HistoryActivityContract.ViewModel by lazy {
-        ViewModelProvider(this)[HistoryActivityViewModel::class.java]
-    }
+//    private val myAdapter by lazy { HistoryActivityAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,12 +22,14 @@ class HistoryActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        Timber.tag("!!!").d("layoutManager")
-        Timber.tag("!!!").d("adapter")
-
-
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = myAdapter
+        binding.historyRecyclerView.apply {
+            // получаем данные из нашей БД
+            Thread {
+                adapter = HistoryActivityAdapter(LocalRepositoryImpl(App.getHistoryDao()).getAllHistory()).also {
+                    it.notifyDataSetChanged()
+                }
+            }.start()
+        }
     }
 
 }

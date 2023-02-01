@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.geekbrains.dictionary.App
 import com.geekbrains.dictionary.R
-import com.geekbrains.dictionary.data.HistoryDatabase
+import com.geekbrains.dictionary.data.HistoryDB
 import com.geekbrains.dictionary.data.entities.History
 import com.geekbrains.dictionary.databinding.ActivityMainBinding
 import com.geekbrains.dictionary.domain.skyeng.SkyengBase
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     private var job: Job? = null
     private var job2: Job? = null
 
-    private var db: HistoryDatabase? = App.appInstance.getDatabase()
+    private var db: HistoryDB? = App.appInstance.getDatabase()
     private val historyDao = db?.historyDao()
 
     private val mainProgressDialog: MainProgressDialog by inject()

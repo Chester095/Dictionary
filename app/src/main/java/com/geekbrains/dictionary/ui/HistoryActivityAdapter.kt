@@ -7,15 +7,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.geekbrains.dictionary.App
 import com.geekbrains.dictionary.R
-import com.geekbrains.dictionary.data.HistoryDatabase
+import com.geekbrains.dictionary.data.HistoryDB
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.*
 
-class HistoryActivityAdapter : RecyclerView.Adapter<HistoryActivityAdapter.HistoryActivityViewHolder>() {
-    private var db: HistoryDatabase? = App.appInstance.getDatabase()
-    private val historyDao by lazy { db?.historyDao() }
+class HistoryActivityAdapter(private var items: List<Dictionary>) : RecyclerView.Adapter<HistoryActivityAdapter.HistoryActivityViewHolder>() {
+/*    private var db: HistoryDB? = App.appInstance.getDatabase()
+    private val historyDao by lazy { db?.historyDao() }*/
 /*
     @SuppressLint("NotifyDataSetChanged")
     fun refreshList(list: List<SkyengBase>) {
@@ -40,23 +41,22 @@ class HistoryActivityAdapter : RecyclerView.Adapter<HistoryActivityAdapter.Histo
         return wordsRepoImpl
     }*/
 
-    override fun getItemCount(): Int = historyDao?.getRowCount()!!
+    override fun getItemCount(): Int = items.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryActivityViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_history, parent, false)
-        Timber.tag("!!!").d("onCreateViewHolder itemView%s", itemView)
-        return HistoryActivityViewHolder(itemView)
+        return HistoryActivityViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_history, parent, false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: HistoryActivityViewHolder, position: Int) {
-        Timber.tag("!!!").d("onBindViewHolder")
-        if (historyDao!=null) {
-            Timber.tag("!!!").d("onBindViewHolder")
-            CoroutineScope(Dispatchers.IO).launch{
-                holder.historyName.text = historyDao?.getId(position).toString()
-            }
-            Timber.tag("!!!").d("onBindViewHolder position = position%s ", position)
-//            holder.translation.text = historyDao?.getId(position).toString()
+        val history = items[position]
+
+        holder.itemView.apply {
+            findViewById<TextView>(R.id.item_text_view).text = history.
+//            holder.historyName.text = historyDao?.getId(position).toString()
         }
     }
 
