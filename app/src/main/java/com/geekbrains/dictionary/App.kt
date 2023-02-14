@@ -2,31 +2,34 @@ package com.geekbrains.dictionary
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.room.Room
 import com.geekbrains.dictionary.data.HistoryDB
-import com.geekbrains.dictionary.data.dao.HistoryDao
+import com.geekbrains.dictionary.data.dao.HistoryDAO
 import com.geekbrains.dictionary.di.Di
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
 class App : Application() {
 
-    private var db: HistoryDB? = null
-
     override fun onCreate() {
         super.onCreate()
+        // инициализация appInstance
+        appInstance = this
+
+
+
         Timber.plant(Timber.DebugTree())
         startKoin {
             modules(Di.mainModule)
         }
-        // инициализация appInstance
-        appInstance = this
-
-/*      db = Room.databaseBuilder(this, HistoryDatabase::class.java, "history_database")
-            .build()        */
+/*        db = Room.databaseBuilder(this,  HistoryDatabase::class.java, "history_database")
+            .build()
+        Timber.d("db = $db")*/
     }
 
     companion object {
+        private const val TAG = "App"
         private var appInstance: App? = null
 
         // сама БД
@@ -35,9 +38,11 @@ class App : Application() {
         // название нашей БД
         private const val DB_NAME = "History.db"
 
+
         // инициализация БД
-        fun getHistoryDao(): HistoryDao {
+        fun getHistoryDao(): HistoryDAO {
             if (db == null) {
+                Timber.tag(TAG).d("History.db  db != null")
                 synchronized(HistoryDB::class.java) {
                     if (db == null) {
                         appInstance?.let { app ->
@@ -54,13 +59,18 @@ class App : Application() {
         }
 
         lateinit var mainContext: Context
+            private set
     }
+/*
+    fun getDatabase(): HistoryDB? {
+        return db
+    }*/
 
     fun setContext(context: Context) {
         mainContext = context
     }
 
-    fun getContext(): Context {
+    fun getContext() : Context {
         return mainContext
     }
 

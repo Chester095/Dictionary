@@ -1,14 +1,9 @@
 package com.geekbrains.dictionary.ui.viewmodels
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStore
-import androidx.lifecycle.ViewModelStoreOwner
 import com.geekbrains.dictionary.data.OnCallbackWebRequest
-import com.geekbrains.dictionary.data.entities.History
 import com.geekbrains.dictionary.datasource.RetrofitWebConnection
 import com.geekbrains.dictionary.domain.skyeng.SkyengBase
-import com.geekbrains.dictionary.ui.HistoryActivityContract
 import com.geekbrains.dictionary.ui.MainActivityContract
 import timber.log.Timber
 

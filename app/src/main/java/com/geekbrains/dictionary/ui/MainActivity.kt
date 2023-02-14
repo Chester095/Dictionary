@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.geekbrains.dictionary.App
 import com.geekbrains.dictionary.R
-import com.geekbrains.dictionary.data.HistoryDB
-import com.geekbrains.dictionary.data.entities.History
+import com.geekbrains.dictionary.data.LocalRepositoryImpl
+import com.geekbrains.dictionary.data.entities.HistoryEntity
 import com.geekbrains.dictionary.databinding.ActivityMainBinding
 import com.geekbrains.dictionary.domain.skyeng.SkyengBase
 import com.geekbrains.dictionary.ui.viewmodels.MainActivityViewModel
@@ -29,9 +29,9 @@ class MainActivity : AppCompatActivity() {
     private val scope2 = CoroutineScope(Dispatchers.IO)
     private var job: Job? = null
     private var job2: Job? = null
-
-    private var db: HistoryDB? = App.appInstance.getDatabase()
-    private val historyDao = db?.historyDao()
+/*
+    var db: HistoryDB? = App.appInstance!!.getDatabase()
+    private val historyDao = db?.historyDao()*/
 
     private val mainProgressDialog: MainProgressDialog by inject()
 
@@ -68,19 +68,16 @@ class MainActivity : AppCompatActivity() {
         binding.buttonKoin.setOnClickListener {
             job?.cancel()
             job = scope.launch {
-                showProgressDialog("Job2 test  " + (job2 as Deferred<*>).await())
+                showProgressDialog("Job2 test  " + (job2 as Deferred<String>).await())
                 delay(5000)
                 dismissProgressDialog()
             }
         }
 
-        viewModel.shouldShowProgress.observe(this) { it ->
+        viewModel.shouldShowProgress.observe(this) {
             initRecyclerView()
-            if (it) {
-                mainProgressDialog.showProgressDialog()
-            } else {
-                mainProgressDialog.dismissProgressDialog()
-            }
+            if (it) mainProgressDialog.showProgressDialog()
+            else mainProgressDialog.dismissProgressDialog()
         }
 
         viewModel.skyengBaseLiveData.observe(this) { list ->
@@ -88,16 +85,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun addData(history: String) {
-        CoroutineScope(Dispatchers.IO).launch{
-            val historyTemp = History(0, history)
-            historyDao?.insertHistory(historyTemp)
+    private fun addData(historyName: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val historyEntityTemp = HistoryEntity(0, historyName)
+            LocalRepositoryImpl(App.getHistoryDao()).saveEntity(historyEntityTemp)
+//            historyDao?.insertHistory(historyEntityTemp)
         }
     }
 
     private fun initRecyclerView() {
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = myAdapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     private fun showListWordsTranslated(list: List<SkyengBase>) {
