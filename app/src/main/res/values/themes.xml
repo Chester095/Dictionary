@@ -54,7 +54,7 @@
         <item name="useMaterialThemeColors">false</item>
     </style>
 
-    <style name="MyBaseTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="MyBaseTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="gitBackgroundColor">@color/indigo_900</item>
         <item name="gitPrimaryColor">@color/indigo_50</item>
         <item name="gitPrimaryDarkColor">@color/black</item>

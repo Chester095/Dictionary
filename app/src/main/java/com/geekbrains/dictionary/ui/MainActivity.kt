@@ -47,6 +47,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         initRecyclerView()
         App().setContext(this)
+        val actionBar = supportActionBar
+        actionBar!!.title = "Словарь"
+
 
         binding.inputLayout.setEndIconOnClickListener {
             initRecyclerView()
