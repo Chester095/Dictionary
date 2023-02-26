@@ -2,6 +2,7 @@ package com.geekbrains.dictionary.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.geekbrains.dictionary.App
 import com.geekbrains.dictionary.R
 import com.geekbrains.dictionary.data.LocalRepositoryImpl
@@ -36,10 +37,12 @@ class HistoryActivity : AppCompatActivity() {
         actionBar!!.title = "История запросов"
 
         Timber.tag("!!! HistoryActivity").d(" onCreate")
-        Timber.tag("!!! HistoryActivity").d(" setContentView")
+//        Timber.tag("!!! HistoryActivity").d(" setContentView")
 
         binding.recyclerView.apply {
             Timber.tag("!!! HistoryActivity").d(" apply")
+            this.layoutManager = LinearLayoutManager(context)
+            Timber.tag("!!! HistoryActivity").d(" layoutManager")
             // получаем данные из нашей БД
             Thread {
                 adapter =
@@ -51,10 +54,9 @@ class HistoryActivity : AppCompatActivity() {
         Timber.tag("!!! HistoryActivity").d(" start")
 
     }
-/*
     private fun initRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = myAdapter
-    }*/
+//        binding.recyclerView.adapter = myAdapter
+    }
 
 }

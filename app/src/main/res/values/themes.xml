@@ -14,7 +14,7 @@
     <style name="MyThemeOrange" parent="MyBaseTheme">
         <item name="gitBackgroundColor">@color/yellow_900</item>
         <item name="gitPrimaryColor">@color/yellow_50</item>
-        <item name="gitPrimaryDarkColor">@color/black</item>
+        <item name="gitPrimaryDarkColor">@color/blue_grey_600</item>
         <item name="swipeIndicatorActive">@color/red</item>
         <item name="swipeIndicatorPassive">@color/orange</item>
         <item name="bottomAppBarStyle">@style/myBottomAppBarStyleBlackBlue</item>
