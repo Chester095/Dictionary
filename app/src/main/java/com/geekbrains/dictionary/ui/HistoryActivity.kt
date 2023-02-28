@@ -14,36 +14,16 @@ class HistoryActivity : AppCompatActivity() {
     private var _binding: ActivityHistoryBinding? = null
     private val binding get() = _binding!!
 
-    /*    private val myAdapter by lazy { HistoryActivityAdapter() }
-
-        private val viewModel: HistoryActivityContract.ViewModel by lazy {
-            ViewModelProvider(this)[HistoryActivityViewModel::class.java]
-        }*/
-/*    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        _binding = ActivityHistoryBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        Timber.d("starting initRecyclerView()")
-        initRecyclerView()
-    }*/
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         _binding = ActivityHistoryBinding.inflate(layoutInflater)
         setTheme(R.style.MyThemeOrange)
         setContentView(binding.root)
-        val actionBar = supportActionBar
-        actionBar!!.title = "История запросов"
-
-        Timber.tag("!!! HistoryActivity").d(" onCreate")
-//        Timber.tag("!!! HistoryActivity").d(" setContentView")
+        supportActionBar!!.title = "История запросов"
 
         binding.recyclerView.apply {
-            Timber.tag("!!! HistoryActivity").d(" apply")
-            this.layoutManager = LinearLayoutManager(context)
-            Timber.tag("!!! HistoryActivity").d(" layoutManager")
-            // получаем данные из нашей БД
+            binding.recyclerView.layoutManager = LinearLayoutManager(context)
             Thread {
                 adapter =
                     HistoryActivityAdapter(LocalRepositoryImpl(App.getHistoryDao()).getAllHistory()).also {
@@ -51,12 +31,6 @@ class HistoryActivity : AppCompatActivity() {
                     }
             }.start()
         }
-        Timber.tag("!!! HistoryActivity").d(" start")
-
-    }
-    private fun initRecyclerView() {
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-//        binding.recyclerView.adapter = myAdapter
     }
 
 }
