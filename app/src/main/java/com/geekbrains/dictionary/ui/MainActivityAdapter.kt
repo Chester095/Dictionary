@@ -1,6 +1,7 @@
 package com.geekbrains.dictionary.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,7 +56,7 @@ class MainActivityAdapter : RecyclerView.Adapter<MainActivityAdapter.MainActivit
 
             var requestOptions = RequestOptions()
             requestOptions = requestOptions.transforms(FitCenter(), RoundedCorners(16))
-            Glide.with(App.mainContext)
+            Glide.with(holder.itemView.context)
                 .load("https:" + listWords[position].imageUrl)
                 .apply(requestOptions)
                 .skipMemoryCache(true)

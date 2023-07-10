@@ -1,11 +1,12 @@
 package com.geekbrains.dictionary.ui
 
 import android.app.ProgressDialog
+import android.content.Context
 import com.geekbrains.dictionary.App
 
-class MainProgressDialog {
+class MainProgressDialog (private val context: Context) {
 
-    private val progressDialog by lazy { ProgressDialog(App().getContext()) }
+    private val progressDialog by lazy { ProgressDialog(context) }
 
     fun showProgressDialog() {
         progressDialog.setTitle("Load data")

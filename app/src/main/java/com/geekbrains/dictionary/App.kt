@@ -7,6 +7,7 @@ import androidx.room.Room
 import com.geekbrains.dictionary.data.HistoryDB
 import com.geekbrains.dictionary.data.dao.HistoryDAO
 import com.geekbrains.dictionary.di.Di
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
 import timber.log.Timber
 
@@ -18,14 +19,17 @@ class App : Application() {
         appInstance = this
 
 
-
+        // запускаем Тимбер
         Timber.plant(Timber.DebugTree())
+
+        // запускаем КОИН
         startKoin {
+            androidContext(this@App)
             modules(Di.mainModule)
         }
-/*        db = Room.databaseBuilder(this,  HistoryDatabase::class.java, "history_database")
-            .build()
-        Timber.d("db = $db")*/
+        /*        db = Room.databaseBuilder(this,  HistoryDatabase::class.java, "history_database")
+                    .build()
+                Timber.d("db = $db")*/
     }
 
     companion object {
@@ -61,16 +65,16 @@ class App : Application() {
         lateinit var mainContext: Context
             private set
     }
-/*
-    fun getDatabase(): HistoryDB? {
-        return db
-    }*/
+    /*
+        fun getDatabase(): HistoryDB? {
+            return db
+        }*/
 
     fun setContext(context: Context) {
         mainContext = context
     }
 
-    fun getContext() : Context {
+    fun getContext(): Context {
         return mainContext
     }
 

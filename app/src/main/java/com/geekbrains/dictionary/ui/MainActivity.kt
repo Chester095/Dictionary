@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.MyThemeOrange)
         setContentView(binding.root)
         initRecyclerView()
-        App().setContext(this)
+//        App().setContext(this)
         supportActionBar!!.title = "Словарь"
 
 
@@ -78,8 +78,8 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.shouldShowProgress.observe(this) {
             initRecyclerView()
-            if (it) mainProgressDialog.showProgressDialog()
-            else mainProgressDialog.dismissProgressDialog()
+//            if (it) mainProgressDialog.showProgressDialog()
+//            else mainProgressDialog.dismissProgressDialog()
         }
 
         viewModel.skyengBaseLiveData.observe(this) { list ->
