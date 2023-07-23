@@ -5,6 +5,7 @@ pluginManagement {
         mavenCentral()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -14,3 +15,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Dictionary"
 include ':app'
+include ':mylibrary'
+include ':mylibrary_api'
+include ':mylibrary_impl'

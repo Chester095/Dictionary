@@ -6,14 +6,14 @@ plugins {
 
 android {
 
-    compileSdk = 33
+    compileSdk = Config.compile_sdk
 
     defaultConfig {
-        applicationId = "com.geekbrains.dictionary"
-        minSdk = 26
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = Config.main_application_id
+        minSdk = Config.min_sdk
+        targetSdk = Config.target_sdk
+        versionCode = Release.version_control
+        versionName = Release.version_name
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -22,20 +22,29 @@ android {
 //                arguments = ["room.schemaLocation":"$projectDir/schemas".toString()]
 //            }
 //        }
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas".toString())
+            }
+        }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = Versions.java_version
+        targetCompatibility = Versions.java_version
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Versions.jvmTarget
     }
 
     buildFeatures {
@@ -46,45 +55,48 @@ android {
 
 dependencies {
     // Rx
-    implementation("io.reactivex.rxjava3:rxjava:3.1.4")
-    implementation("io.reactivex.rxjava3:rxkotlin:3.0.1")
-    implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
-    implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
-    implementation("android.arch.lifecycle:reactivestreams:1.1.1")
+    implementation(RX.rxjava)
+    implementation(RX.rxkotlin)
+    implementation(RX.rxandroid)
+    implementation(RX.adapter)
+    implementation(RX.reactivestreams)
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
-
+    implementation(Retrofit.retrofit)
+    implementation(Retrofit.gson)
+    implementation(Retrofit.rxjava3)
 
     //Dagger
-    implementation("com.google.dagger:dagger:2.41")
-//    kapt "com.google.dagger:dagger-compiler:2.41"
+    implementation(Dagger.dagger)
+    kapt(Dagger.dagger)
 
     //Koin
-    var koin_version = "3.1.2"
-    implementation("io.insert-koin:koin-core:$koin_version")
-    implementation("io.insert-koin:koin-android:$koin_version")
+    implementation(Koin.koin_core)
+    implementation(Koin.koin_android)
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.8.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-    androidTestImplementation ("junit:junit:4.+")
+    //Libs
+    implementation(Material.ANDROID_MATERIAL)
+    implementation(AndroidX.CORE_KTX_LIB)
+    implementation(AndroidX.APPCOMPAT_LIB)
+    implementation(AndroidX.constraintlayout)
+    implementation(AndroidX.support_v4)
+    implementation(AndroidX.livedata_ktx)
+    implementation(AndroidX.viewmodel_ktx)
+
+    //Test
+    androidTestImplementation(Test.jUnit)
 
     // Timber
-    implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation(Timber.timber)
 
     //Glide
-    implementation("com.github.bumptech.glide:glide:4.12.0")
-    kapt ("com.github.bumptech.glide:compiler:4.12.0")
+    implementation(Glide.glide)
+    kapt(Glide.glide)
 
     //Room
-    var roomVersion = "2.5.0"
-    implementation("androidx.room:room-runtime:$roomVersion")
-    kapt ("androidx.room:room-compiler:$roomVersion")
+    implementation(Room.room)
+    kapt(Room.room)
+
+
+    implementation(project(":mylibrary"))
 }
