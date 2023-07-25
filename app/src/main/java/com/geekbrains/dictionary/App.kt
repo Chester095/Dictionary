@@ -18,8 +18,10 @@ class App : Application() {
         appInstance = this
 
 
-
+        // запускаем Тимбер
         Timber.plant(Timber.DebugTree())
+
+        // запускаем КОИН
         startKoin {
             modules(Di.mainModule)
         }

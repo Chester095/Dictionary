@@ -1,118 +1,120 @@
 import org.gradle.api.JavaVersion
 
 object Config {
-    const val compile_sdk = 33
-    const val application_id = "com.example.mylibrary"
-    const val main_application_id = "com.example.mylibrary"
-    const val min_sdk = 25
-    const val target_sdk = 33
-    const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    const val consumerProguardFiles = "consumer-rules.pro"
+    const val COMPILE_SDK = 33
+    const val APPLICATION_ID = "com.example.mylibrary"
+    const val MAIN_APPLICATION_ID = "com.example.mylibrary"
+    const val IMPL_APPLICATION_ID = "com.example.mylibrary_impl"
+    const val API_APPLICATION_ID = "com.example.mylibrary_api"
+    const val MIN_SDK = 25
+    const val TARGET_SDK = 33
+    const val TEST_INSTRUMENTATION_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
+    const val CONSUMER_PROGUARD_FILES = "consumer-rules.pro"
 }
 
 object Release {
-    const val version_control = 1
-    const val version_name = "1.0"
+    const val VERSION_CONTROL = 1
+    const val VERSION_NAME = "1.0"
 }
 
 
 object Versions {
-    val java_version = JavaVersion.VERSION_1_8
-    const val jvmTarget = "1.8"
+    val JAVA_VERSION = JavaVersion.VERSION_1_8
+    const val JVM_TARGET = "1.8"
 
     //Material
-    const val android_material = "1.9.0"
+    const val ANDROID_MATERIAL = "1.9.0"
 
     //AndroidX
     internal const val CORE_KTX_VER = "1.8.0"
     internal const val APPCOMPAT_VER = "1.6.1"
-    const val constraintlayout = "2.1.4"
-    const val support_v4 = "1.0.0"
-    const val livedata_ktx = "2.5.1"
-    const val viewmodel_ktx = "2.5.1"
+    const val CONSTRAINT_LAYOUT = "2.1.4"
+    const val SUPPORT_V4 = "1.0.0"
+    const val LIVEDATA_KTX = "2.5.1"
+    const val VIEWMODEL_KTX = "2.5.1"
 
     //Test
-    const val jUnit = "4.13.2"
-    const val runner = "1.1.3"
-    const val espressoCore = "3.4.0"
+    const val J_UNIT = "4.13.2"
+    const val RUNNER = "1.1.3"
+    const val ESPRESSO_CORE = "3.4.0"
 
     // Rx
-    const val rxjava = "3.1.4"
-    const val rxkotlin = "3.0.1"
-    const val rxandroid = "3.0.0"
-    const val adapter = "2.9.0"
-    const val reactivestreams = "1.1.1"
+    const val RX_JAVA = "3.1.4"
+    const val RX_KOTLIN = "3.0.1"
+    const val RX_ANDROID = "3.0.0"
+    const val ADAPTER = "2.9.0"
+    const val REACTIVE_STREAMS = "1.1.1"
 
     // Retrofit
-    const val retrofit = "2.9.0"
+    const val RETROFIT = "2.9.0"
 
     //Dagger
-    const val dagger = "2.41"
+    const val DAGGER = "2.41"
 
     //Koin
-    const val koin_version = "3.1.2"
+    const val KOIN_VERSION = "3.1.2"
 
     // Timber
-    const val timber = "5.0.1"
+    const val TIMBER = "5.0.1"
 
     //Glide
-    const val glide = "4.12.0"
+    const val GLIDE = "4.12.0"
 
     //Room
-    const val room = "2.5.0"
+    const val ROOM = "2.5.0"
 }
 
 object Material {
-    const val ANDROID_MATERIAL = "com.google.android.material:material:${Versions.android_material}"
+    const val ANDROID_MATERIAL = "com.google.android.material:material:${Versions.ANDROID_MATERIAL}"
 }
 
 object AndroidX {
     const val CORE_KTX_LIB = "androidx.core:core-ktx:${Versions.CORE_KTX_VER}"
     const val APPCOMPAT_LIB = "androidx.appcompat:appcompat:${Versions.APPCOMPAT_VER}"
-    const val constraintlayout =
-        "androidx.constraintlayout:constraintlayout:${Versions.constraintlayout}"
-    const val support_v4 = "androidx.legacy:legacy-support-v4:${Versions.support_v4}"
-    const val livedata_ktx = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.livedata_ktx}"
-    const val viewmodel_ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.viewmodel_ktx}"
+    const val CONSTRAINT_LAYOUT =
+        "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT_LAYOUT}"
+    const val SUPPORT_V4 = "androidx.legacy:legacy-support-v4:${Versions.SUPPORT_V4}"
+    const val LIVEDATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIVEDATA_KTX}"
+    const val VIEWMODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.VIEWMODEL_KTX}"
 }
 
 object Test {
-    const val jUnit = "junit:junit:${Versions.jUnit}"
-    const val runner = "androidx.test.ext:junit:${Versions.runner}"
-    const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
+    const val J_UNIT = "junit:junit:${Versions.J_UNIT}"
+    const val RUNNER = "androidx.test.ext:junit:${Versions.RUNNER}"
+    const val ESPRESSO_CORE = "androidx.test.espresso:espresso-core:${Versions.ESPRESSO_CORE}"
 }
 
 object RX {
-    const val rxjava = "io.reactivex.rxjava3:rxjava:${Versions.rxjava}"
-    const val rxkotlin = "io.reactivex.rxjava3:rxkotlin:${Versions.rxkotlin}"
-    const val rxandroid = "io.reactivex.rxjava3:rxandroid:${Versions.rxandroid}"
-    const val adapter = "com.squareup.retrofit2:adapter-rxjava3:${Versions.adapter}"
-    const val reactivestreams = "android.arch.lifecycle:reactivestreams:${Versions.reactivestreams}"
+    const val RX_JAVA = "io.reactivex.rxjava3:rxjava:${Versions.RX_JAVA}"
+    const val RX_KOTLIN = "io.reactivex.rxjava3:rxkotlin:${Versions.RX_KOTLIN}"
+    const val RX_ANDROID = "io.reactivex.rxjava3:rxandroid:${Versions.RX_ANDROID}"
+    const val ADAPTER = "com.squareup.retrofit2:adapter-rxjava3:${Versions.ADAPTER}"
+    const val REACTIVE_STREAMS = "android.arch.lifecycle:reactivestreams:${Versions.REACTIVE_STREAMS}"
 }
 
 object Retrofit {
-    const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
-    const val gson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
-    const val rxjava3 = "com.squareup.retrofit2:adapter-rxjava3:${Versions.retrofit}"
+    const val RETROFIT = "com.squareup.retrofit2:retrofit:${Versions.RETROFIT}"
+    const val GSON = "com.squareup.retrofit2:converter-gson:${Versions.RETROFIT}"
+    const val RX_JAVA_3 = "com.squareup.retrofit2:adapter-rxjava3:${Versions.RETROFIT}"
 }
 
 object Dagger {
-    const val dagger = "com.google.dagger:dagger:${Versions.dagger}"
+    const val DAGGER = "com.google.dagger:dagger:${Versions.DAGGER}"
 }
 
 object Koin {
-    const val koin_core = "io.insert-koin:koin-core:${Versions.koin_version}"
-    const val koin_android = "io.insert-koin:koin-android:${Versions.koin_version}"
+    const val KOIN_CORE = "io.insert-koin:koin-core:${Versions.KOIN_VERSION}"
+    const val KOIN_ANDROID = "io.insert-koin:koin-android:${Versions.KOIN_VERSION}"
 }
 
 object Timber {
-    const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
+    const val TIMBER = "com.jakewharton.timber:timber:${Versions.TIMBER}"
 }
 
 object Glide {
-    const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
+    const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
 }
 
 object Room {
-    const val room = "androidx.room:room-runtime:${Versions.room}"
+    const val ROOM = "androidx.room:room-runtime:${Versions.ROOM}"
 }

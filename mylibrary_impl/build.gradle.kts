@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    namespace = "com.example.mylibrary_impl"
-    compileSdk = 33
+    namespace = Config.IMPL_APPLICATION_ID
+    compileSdk = Config.COMPILE_SDK
 
     defaultConfig {
-        minSdk = 25
-        targetSdk = 33
+        minSdk = Config.MIN_SDK
+        targetSdk = Config.TARGET_SDK
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -25,11 +25,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = Versions.java_version
-        targetCompatibility = Versions.java_version
+        sourceCompatibility = Versions.JAVA_VERSION
+        targetCompatibility = Versions.JAVA_VERSION
     }
     kotlinOptions {
-        jvmTarget = Versions.jvmTarget
+        jvmTarget = Versions.JVM_TARGET
     }
 }
 
@@ -39,9 +39,9 @@ dependencies {
     implementation(AndroidX.APPCOMPAT_LIB)
 
     //Test
-    testImplementation(Test.jUnit)
-    androidTestImplementation(Test.runner)
-    androidTestImplementation(Test.espressoCore)
+    testImplementation(Test.J_UNIT)
+    androidTestImplementation(Test.RUNNER)
+    androidTestImplementation(Test.ESPRESSO_CORE)
 
 
     implementation(project(":mylibrary_api"))

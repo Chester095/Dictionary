@@ -27,8 +27,10 @@ class MainActivity : AppCompatActivity() {
 
     private val scope = CoroutineScope(Dispatchers.Main)
     private val scope2 = CoroutineScope(Dispatchers.IO)
+    private val scope3 = CoroutineScope(Dispatchers.IO)
     private var job: Job? = null
     private var job2: Job? = null
+    private var job3: Job? = null
 /*
     var db: HistoryDB? = App.appInstance!!.getDatabase()
     private val historyDao = db?.historyDao()*/
@@ -89,11 +91,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addData(historyName: String) {
-        CoroutineScope(Dispatchers.IO).launch {
+
+        job3?.cancel()
+        job3 = scope3.launch {
             val historyEntityTemp = HistoryEntity(0, historyName)
             LocalRepositoryImpl(App.getHistoryDao()).saveEntity(historyEntityTemp)
-//            historyDao?.insertHistory(historyEntityTemp)
         }
+/*        CoroutineScope(Dispatchers.IO).launch {
+            val historyEntityTemp = HistoryEntity(0, historyName)
+            LocalRepositoryImpl(App.getHistoryDao()).saveEntity(historyEntityTemp)
+        }*/
     }
 
     private fun initRecyclerView() {
