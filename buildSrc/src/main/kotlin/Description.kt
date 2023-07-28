@@ -18,6 +18,16 @@ object Release {
     const val VERSION_NAME = "1.0"
 }
 
+object Modules {
+    const val app = ":app"
+    const val core = ":core"
+    const val model = ":model"
+    const val repository = ":repository"
+    const val utils = ":utils"
+
+    //Features
+    const val historyScreen = ":historyScreen"
+}
 
 object Versions {
     val JAVA_VERSION = JavaVersion.VERSION_1_8
