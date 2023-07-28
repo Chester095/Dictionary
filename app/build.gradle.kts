@@ -6,22 +6,27 @@ plugins {
 
 android {
 
-    compileSdk = 33
+    compileSdk = Config.COMPILE_SDK
 
     defaultConfig {
-        applicationId = "com.geekbrains.dictionary"
-        minSdk = 26
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = Config.APPLICATION_ID
+        minSdk = Config.MIN_SDK
+        targetSdk = Config.TARGET_SDK
+        versionCode = Release.VERSION_CONTROL
+        versionName = Release.VERSION_NAME
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = Config.TEST_INSTRUMENTATION_RUNNER
 
 //        javaCompileOptions {
 //            annotationProcessorOptions {
 //                arguments = ["room.schemaLocation":"$projectDir/schemas".toString()]
 //            }
 //        }
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas".toString())
+            }
+        }
     }
 
     buildTypes {
@@ -31,60 +36,65 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = Versions.JAVA_VERSION
+        targetCompatibility = Versions.JAVA_VERSION
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Versions.JVM_TARGET
     }
 
     buildFeatures {
         viewBinding = true
     }
-    namespace = "com.geekbrains.dictionary"
+    namespace = Config.NAMESPACE
 }
 
 dependencies {
     // Rx
-    implementation("io.reactivex.rxjava3:rxjava:3.1.4")
-    implementation("io.reactivex.rxjava3:rxkotlin:3.0.1")
-    implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
-    implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
-    implementation("android.arch.lifecycle:reactivestreams:1.1.1")
+    implementation(RX.RX_JAVA)
+    implementation(RX.RX_KOTLIN)
+    implementation(RX.RX_ANDROID)
+    implementation(RX.ADAPTER)
+    implementation(RX.REACTIVE_STREAMS)
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
+    implementation(Retrofit.RETROFIT)
+    implementation(Retrofit.GSON)
+    implementation(Retrofit.ADAPTER)
 
 
     //Dagger
-    implementation("com.google.dagger:dagger:2.41")
-//    kapt "com.google.dagger:dagger-compiler:2.41"
+    implementation(Dagger.DAGGER)
+    kapt (Dagger.DAGGER)
 
     //Koin
-    var koin_version = "3.1.2"
-    implementation("io.insert-koin:koin-core:$koin_version")
-    implementation("io.insert-koin:koin-android:$koin_version")
+    implementation(Koin.KOIN_CORE)
+    implementation(Koin.KOIN_ANDROID)
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.8.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-    androidTestImplementation ("junit:junit:4.+")
+    //AndroidX
+    implementation(AndroidX.CORE_KTX_LIB)
+    implementation(AndroidX.APPCOMPAT_LIB)
+    implementation(AndroidX.CONSTRAINT_LAYOUT)
+    implementation(AndroidX.SUPPORT_V4)
+    implementation(AndroidX.LIVEDATA_KTX)
+    implementation(AndroidX.VIEWMODEL_KTX)
+
+    //Material
+    implementation(Material.ANDROID_MATERIAL)
+
+    //Test
+    implementation(Test.J_UNIT)
+    androidTestImplementation (Test.EXT)
+    androidTestImplementation (Test.ESPRESSO_CORE)
 
     // Timber
-    implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation(Timber.TIMBER)
 
     //Glide
-    implementation("com.github.bumptech.glide:glide:4.12.0")
-    kapt ("com.github.bumptech.glide:compiler:4.12.0")
+    implementation(Glide.GLIDE)
+    kapt (Glide.GLIDE)
 
     //Room
-    var roomVersion = "2.5.0"
-    implementation("androidx.room:room-runtime:$roomVersion")
-    kapt ("androidx.room:room-compiler:$roomVersion")
+    implementation(Room.RUNTIME)
+    kapt (Room.COMPILER)
 }
