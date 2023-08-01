@@ -17,11 +17,6 @@ android {
 
         testInstrumentationRunner = Config.TEST_INSTRUMENTATION_RUNNER
 
-//        javaCompileOptions {
-//            annotationProcessorOptions {
-//                arguments = ["room.schemaLocation":"$projectDir/schemas".toString()]
-//            }
-//        }
         kapt {
             arguments {
                 arg("room.schemaLocation", "$projectDir/schemas".toString())
@@ -32,7 +27,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(getDefaultProguardFile(Config.PROGUARD_ANDROID_OPTIMIZE), Config.PROGUARD_RULES)
         }
     }
     compileOptions {

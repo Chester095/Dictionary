@@ -4,38 +4,45 @@ plugins {
 }
 
 android {
-    namespace = "com.example.model"
-    compileSdk = 33
+    namespace = Config.NAMESPACE_MODEL
+    compileSdk = Config.COMPILE_SDK
 
     defaultConfig {
-        minSdk = 24
+        minSdk = Config.MIN_SDK
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+        testInstrumentationRunner = Config.TEST_INSTRUMENTATION_RUNNER
+        consumerProguardFiles(Config.CONSUMER_PROGUARD_FILES)
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(getDefaultProguardFile(Config.PROGUARD_ANDROID_OPTIMIZE), Config.PROGUARD_RULES)
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = Versions.JAVA_VERSION
+        targetCompatibility = Versions.JAVA_VERSION
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Versions.JVM_TARGET
     }
 }
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    //AndroidX
+    implementation(AndroidX.CORE_KTX_LIB)
+    implementation(AndroidX.APPCOMPAT_LIB)
+
+    //Material
+    implementation(Material.ANDROID_MATERIAL)
+
+    // Bom
+    implementation(platform(Bom.BOM))
+
+    //Test
+    implementation(Test.J_UNIT)
+    androidTestImplementation (Test.EXT)
+    androidTestImplementation (Test.ESPRESSO_CORE)
 }

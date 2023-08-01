@@ -4,29 +4,20 @@ object Config {
     const val COMPILE_SDK = 33
     const val APPLICATION_ID = "com.geekbrains.dictionary"
     const val NAMESPACE = "com.geekbrains.dictionary"
-    const val MAIN_APPLICATION_ID = "com.example.mylibrary"
-    const val IMPL_APPLICATION_ID = "com.example.mylibrary_impl"
-    const val API_APPLICATION_ID = "com.example.mylibrary_api"
+    const val NAMESPACE_CORE = "com.example.core"
+    const val NAMESPACE_MODEL = "com.example.model"
+    const val NAMESPACE_REPOSITORY = "com.example.repository"
     const val MIN_SDK = 26
     const val TARGET_SDK = 33
     const val TEST_INSTRUMENTATION_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
     const val CONSUMER_PROGUARD_FILES = "consumer-rules.pro"
+    const val PROGUARD_ANDROID_OPTIMIZE = "proguard-android-optimize.txt"
+    const val PROGUARD_RULES = "proguard-rules.pro"
 }
 
 object Release {
     const val VERSION_CONTROL = 1
     const val VERSION_NAME = "1.0"
-}
-
-object Modules {
-    const val app = ":app"
-    const val core = ":core"
-    const val model = ":model"
-    const val repository = ":repository"
-    const val utils = ":utils"
-
-    //Features
-    const val historyScreen = ":historyScreen"
 }
 
 object Versions {
@@ -59,6 +50,9 @@ object Versions {
 
     //Material
     const val ANDROID_MATERIAL = "1.8.0"
+
+    //Bom
+    const val BOM = "1.8.0"
 
     //Test
     const val J_UNIT = "4.13.2"
@@ -110,6 +104,10 @@ object AndroidX {
 
 object Material {
     const val ANDROID_MATERIAL = "com.google.android.material:material:${Versions.ANDROID_MATERIAL}"
+}
+
+object Bom{
+    const val BOM = "org.jetbrains.kotlin:kotlin-bom:${Versions.BOM}"
 }
 
 object Test {
