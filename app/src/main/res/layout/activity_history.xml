@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.HistoryActivity">
+    tools:context="com.geekbrains.dictionary.ui.HistoryActivity">
 
 
     <androidx.recyclerview.widget.RecyclerView

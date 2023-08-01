@@ -1,4 +1,4 @@
-package com.example.repository
+package com.geekbrains.dictionary
 
 import org.junit.Test
 

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = Config.NAMESPACE_REPOSITORY
+    namespace = Config.NAMESPACE_HISTORY_SCREEN
     compileSdk = Config.COMPILE_SDK
 
     defaultConfig {
@@ -26,6 +26,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = Versions.JVM_TARGET
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 }
 

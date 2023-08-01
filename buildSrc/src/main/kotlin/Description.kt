@@ -4,9 +4,10 @@ object Config {
     const val COMPILE_SDK = 33
     const val APPLICATION_ID = "com.geekbrains.dictionary"
     const val NAMESPACE = "com.geekbrains.dictionary"
-    const val NAMESPACE_CORE = "com.example.core"
-    const val NAMESPACE_MODEL = "com.example.model"
-    const val NAMESPACE_REPOSITORY = "com.example.repository"
+    const val NAMESPACE_CORE = "com.geekbrains.dictionary.core"
+    const val NAMESPACE_MODEL = "com.geekbrains.dictionary.model"
+    const val NAMESPACE_REPOSITORY = "com.geekbrains.dictionary.repository"
+    const val NAMESPACE_HISTORY_SCREEN = "com.geekbrains.dictionary.historyscreen"
     const val MIN_SDK = 26
     const val TARGET_SDK = 33
     const val TEST_INSTRUMENTATION_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
@@ -18,6 +19,16 @@ object Config {
 object Release {
     const val VERSION_CONTROL = 1
     const val VERSION_NAME = "1.0"
+}
+
+object Modules {
+    const val app = ":app"
+    const val core = ":core"
+    const val model = ":model"
+    const val repository = ":repository"
+
+//Features
+    const val historyScreen = ":historyScreen"
 }
 
 object Versions {

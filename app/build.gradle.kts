@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-
+    namespace = Config.NAMESPACE
     compileSdk = Config.COMPILE_SDK
 
     defaultConfig {
@@ -41,10 +41,16 @@ android {
     buildFeatures {
         viewBinding = true
     }
-    namespace = Config.NAMESPACE
 }
 
 dependencies {
+
+    //Modules
+    implementation(Modules.core)
+    implementation(Modules.model)
+    implementation(Modules.repository)
+    implementation(Modules.historyScreen)
+
     // Rx
     implementation(RX.RX_JAVA)
     implementation(RX.RX_KOTLIN)
