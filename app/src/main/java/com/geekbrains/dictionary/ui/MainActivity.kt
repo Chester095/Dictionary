@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.buttonHistory.setOnClickListener {
-            val intent = Intent(this@MainActivity, com.example.historyscreen.ui.HistoryActivity::class.java)
+            val intent = Intent(this@MainActivity, HistoryActivity::class.java)
             startActivity(intent)
         }
 
