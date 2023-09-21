@@ -1,9 +1,15 @@
 package com.geekbrains.dictionary.ui
 
+import android.animation.ObjectAnimator
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.AnticipateInterpolator
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.animation.doOnEnd
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.geekbrains.dictionary.App
@@ -29,9 +35,9 @@ class MainActivity : AppCompatActivity() {
     private val scope2 = CoroutineScope(Dispatchers.IO)
     private var job: Job? = null
     private var job2: Job? = null
-/*
-    var db: HistoryDB? = App.appInstance!!.getDatabase()
-    private val historyDao = db?.historyDao()*/
+    /*
+        var db: HistoryDB? = App.appInstance!!.getDatabase()
+        private val historyDao = db?.historyDao()*/
 
     private val mainProgressDialog: MainProgressDialog by inject()
 
@@ -41,10 +47,27 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val splashScreen = installSplashScreen()
 
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setTheme(R.style.MyThemeOrange)
         setContentView(binding.root)
+
+        splashScreen.setOnExitAnimationListener { splashScreenProvider ->
+            ObjectAnimator.ofFloat(
+                splashScreenProvider.view,
+                View.TRANSLATION_Y,
+                0f,
+                splashScreenProvider.view.height.toFloat()
+            ).apply {
+                duration = 500
+                interpolator = AnticipateInterpolator()
+                doOnEnd {
+                    splashScreenProvider.remove()
+                }
+            }.start()
+        }
+
         initRecyclerView()
         App().setContext(this)
         val actionBar = supportActionBar

@@ -1,9 +1,9 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.NewSplash" parent="Theme.SplashScreen">
-        <item name="postSplashScreenTheme">@style/Theme.SplashWidget</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_baseline_2k_plus_24</item>
-        <item name="windowSplashScreenBackground">@android:color/holo_orange_light</item>
+    <style name="Theme.NewSplash" parent="Theme.MyThemeSplash">
+        <item name="postSplashScreenTheme">@style/MyThemeOrange</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_dictionary</item>
+        <item name="windowSplashScreenBackground">@color/white</item>
 
     </style>
 

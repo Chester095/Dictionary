@@ -14,19 +14,6 @@ class HistoryActivity : AppCompatActivity() {
     private var _binding: ActivityHistoryBinding? = null
     private val binding get() = _binding!!
 
-    /*    private val myAdapter by lazy { HistoryActivityAdapter() }
-
-        private val viewModel: HistoryActivityContract.ViewModel by lazy {
-            ViewModelProvider(this)[HistoryActivityViewModel::class.java]
-        }*/
-/*    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        _binding = ActivityHistoryBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        Timber.d("starting initRecyclerView()")
-        initRecyclerView()
-    }*/
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -35,9 +22,6 @@ class HistoryActivity : AppCompatActivity() {
         setContentView(binding.root)
         val actionBar = supportActionBar
         actionBar!!.title = "История запросов"
-
-        Timber.tag("!!! HistoryActivity").d(" onCreate")
-//        Timber.tag("!!! HistoryActivity").d(" setContentView")
 
         binding.recyclerView.apply {
             Timber.tag("!!! HistoryActivity").d(" apply")
@@ -56,7 +40,6 @@ class HistoryActivity : AppCompatActivity() {
     }
     private fun initRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-//        binding.recyclerView.adapter = myAdapter
     }
 
 }

@@ -1,7 +1,7 @@
 <resources>
     <!-- Base application theme. -->
 
-    <style name="MyThemeSplash" parent="MyBaseTheme">
+    <style name="Theme.MyThemeSplash" parent="MyBaseTheme">
         <item name="gitBackgroundColor">@color/white</item>
         <item name="gitPrimaryColor">@color/white</item>
         <item name="gitPrimaryDarkColor">@color/white</item>
