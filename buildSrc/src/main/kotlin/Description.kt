@@ -59,6 +59,9 @@ object Versions {
     const val LIVEDATA_KTX = "2.5.1"
     const val VIEWMODEL_KTX = "2.5.1"
 
+    //Splash
+    const val SPLASH_SCREEN = "1.0.1"
+
     //Material
     const val ANDROID_MATERIAL = "1.8.0"
 
@@ -111,6 +114,7 @@ object AndroidX {
     const val SUPPORT_V4 = "androidx.legacy:legacy-support-v4:${Versions.SUPPORT_V4}"
     const val LIVEDATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIVEDATA_KTX}"
     const val VIEWMODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.VIEWMODEL_KTX}"
+    const val SPLASH_SCREEN = "androidx.core:core-splashscreen:${Versions.SPLASH_SCREEN}"
 }
 
 object Material {

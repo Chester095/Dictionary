@@ -74,6 +74,9 @@ dependencies {
     implementation(AndroidX.LIVEDATA_KTX)
     implementation(AndroidX.VIEWMODEL_KTX)
 
+    //Splash
+    implementation(AndroidX.SPLASH_SCREEN)
+
     //Material
     implementation(Material.ANDROID_MATERIAL)
 
@@ -92,4 +95,5 @@ dependencies {
     //Room
     implementation(Room.RUNTIME)
     kapt (Room.COMPILER)
+
 }
