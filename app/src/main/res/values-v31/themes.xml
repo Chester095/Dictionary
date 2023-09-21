@@ -4,7 +4,6 @@
         <item name="postSplashScreenTheme">@style/MyThemeOrange</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_dictionary</item>
         <item name="windowSplashScreenBackground">@color/white</item>
-
     </style>
 
 </resources>

@@ -89,4 +89,6 @@
         <item name="windowMinWidthMajor">90pt</item>
         <item name="windowMinWidthMinor">90pt</item>
     </style>
+
+    <style name="Theme.NewSplash" parent="Theme.MyThemeSplash"/>
 </resources>

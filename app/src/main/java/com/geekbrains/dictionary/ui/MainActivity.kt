@@ -3,9 +3,9 @@ package com.geekbrains.dictionary.ui
 import android.animation.ObjectAnimator
 import android.app.ProgressDialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.animation.AccelerateInterpolator
 import android.view.animation.AnticipateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.animation.doOnEnd
@@ -19,7 +19,14 @@ import com.geekbrains.dictionary.data.entities.HistoryEntity
 import com.geekbrains.dictionary.databinding.ActivityMainBinding
 import com.geekbrains.dictionary.domain.skyeng.SkyengBase
 import com.geekbrains.dictionary.ui.viewmodels.MainActivityViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 
@@ -47,26 +54,27 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val splashScreen = installSplashScreen()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val splashScreen = installSplashScreen()
+            splashScreen.setOnExitAnimationListener { splashScreenProvider ->
+                ObjectAnimator.ofFloat(
+                    splashScreenProvider.view,
+                    View.TRANSLATION_Y,
+                    0f,
+                    splashScreenProvider.view.height.toFloat()
+                ).apply {
+                    duration = 500
+                    interpolator = AnticipateInterpolator()
+                    doOnEnd {
+                        splashScreenProvider.remove()
+                    }
+                }.start()
+            }
+        }
 
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setTheme(R.style.MyThemeOrange)
         setContentView(binding.root)
-
-        splashScreen.setOnExitAnimationListener { splashScreenProvider ->
-            ObjectAnimator.ofFloat(
-                splashScreenProvider.view,
-                View.TRANSLATION_Y,
-                0f,
-                splashScreenProvider.view.height.toFloat()
-            ).apply {
-                duration = 500
-                interpolator = AnticipateInterpolator()
-                doOnEnd {
-                    splashScreenProvider.remove()
-                }
-            }.start()
-        }
 
         initRecyclerView()
         App().setContext(this)
